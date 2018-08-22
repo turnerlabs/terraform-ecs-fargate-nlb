@@ -10,10 +10,8 @@ The optional components can be removed by simply deleting the `.tf` file.
 |------|-------------|:----:|
 | [main.tf][edm] | Terrform remote state, AWS provider, output |  |
 | [ecs.tf][ede] | ECS Cluster, Service, Task Definition, ecsTaskExecutionRole, CloudWatch Log Group |  |
-| [lb.tf][edl] | ALB, Target Group, S3 bucket for access logs  |  |
-| [nsg.tf][edn] | NSG for ALB and Task |  |
-| [lb-http.tf][edlhttp] | HTTP listener, NSG rule. Delete if HTTPS only | Yes |
-| [lb-https.tf][edlhttps] | HTTPS listener, NSG rule. Delete if HTTP only | Yes |
+| [nlb.tf][edl] | NLB, Target Group, Listener  |  |
+| [nsg.tf][edn] | NSG for NLB and Task |  |
 | [dashboard.tf][edd] | CloudWatch dashboard: CPU, memory, and HTTP-related metrics | Yes |
 | [role.tf][edr] | Application Role for container | Yes |
 | [cicd.tf][edc] | IAM user that can be used by CI/CD systems | Yes |
@@ -39,7 +37,6 @@ $ terraform apply
 |------|-------------|:----:|:-----:|:-----:|
 | app | The application's name | string | - | yes |
 | aws_profile | The AWS Profile to use | string | - | yes |
-| certificate_arn | The ARN for the SSL certificate | string | - | yes |
 | container_name | The name of the container to run | string | `app` | no |
 | container_port | The port the container will listen on, used for load balancer health check Best practice is that this value is higher than 1024 so the container processes isn't running at root. | string | - | yes |
 | default_backend_image | The default docker image to deploy with the infrastructure. Note that you can use the fargate CLI for application concerns like deploying actual application images and environment variables on top of the infrastructure provisioned by this template https://github.com/turnerlabs/fargate note that the source for the turner default backend image is here: https://github.com/turnerlabs/turner-defaultbackend | string | `quay.io/turner/turner-defaultbackend:0.2.0` | no |
@@ -49,14 +46,10 @@ $ terraform apply
 | ecs_autoscale_max_instances | The maximum number of containers that should be running. | string | `8` | no |
 | ecs_autoscale_min_instances | The minimum number of containers that should be running. Must be at least 1. For production, consider using at least "2". | string | `1` | no |
 | environment | The environment that is being built | string | - | yes |
-| health_check | The path to the health check for the load balancer to know if the container(s) are ready | string | - | yes |
 | health_check_interval | How often to check the liveliness of the container | string | `30` | no |
-| health_check_matcher | What HTTP response code to listen for | string | `200` | no |
-| health_check_timeout | How long to wait for the response on the health check path | string | `10` | no |
-| https_port | The port to listen on for HTTPS, always use 443 | string | `443` | no |
 | internal | Whether the application is available on the public internet, also will determine which subnets will be used (public or private) | string | `true` | no |
 | lb_port | The port the load balancer will listen on | string | `80` | no |
-| lb_protocol | The load balancer protocol | string | `HTTP` | no |
+| lb_protocol | The load balancer protocol | string | `TCP` | no |
 | logz_token | The auth token to use for sending logs to Logz.io | string | - | yes |
 | logz_url | The endpoint to use for sending logs to Logz.io | string | `https://listener.logz.io:8071` | no |
 | private_subnets | The private subnets, minimum of 2, that are a part of the VPC(s) | string | - | yes |

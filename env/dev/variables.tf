@@ -3,8 +3,8 @@
  * Common variables to use in various Terraform files (*.tf)
  */
 
- # The AWS region to use for the dev environment's infrastructure
- # Currently, Fargate is only available in `us-east-1`.
+# The AWS region to use for the dev environment's infrastructure
+# Currently, Fargate is only available in `us-east-1`.
 variable "region" {
   default = "us-east-1"
 }
@@ -44,7 +44,7 @@ variable "lb_port" {
 
 # The load balancer protocol
 variable "lb_protocol" {
-  default = "HTTP"
+  default = "TCP"
 }
 
 # How many containers to run
@@ -57,22 +57,9 @@ variable "deregistration_delay" {
   default = "30"
 }
 
-# The path to the health check for the load balancer to know if the container(s) are ready
-variable "health_check" {}
-
 # How often to check the liveliness of the container
 variable "health_check_interval" {
   default = "30"
-}
-
-# How long to wait for the response on the health check path
-variable "health_check_timeout" {
-  default = "10"
-}
-
-# What HTTP response code to listen for
-variable "health_check_matcher" {
-  default = "200"
 }
 
 # The name of the container to run
