@@ -1,6 +1,7 @@
 resource "aws_lb" "main" {
-  name               = "${var.app}-${var.environment}"
-  load_balancer_type = "network"
+  name                             = "${var.app}-${var.environment}"
+  load_balancer_type               = "network"
+  enable_cross_zone_load_balancing = "true"
 
   # launch lbs in public or private subnets based on "internal" variable
   internal = "${var.internal}"
