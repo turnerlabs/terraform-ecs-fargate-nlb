@@ -9,12 +9,6 @@ variable "region" {
   default = "us-east-1"
 }
 
-# The AWS Profile to use
-variable "aws_profile" {}
-
-# The SAML role to use
-variable "saml_role" {}
-
 # Tags for the infrastructure
 variable "tags" {
   type = "map"
@@ -47,26 +41,6 @@ variable "lb_protocol" {
   default = "TCP"
 }
 
-# How many containers to run
-variable "replicas" {
-  default = "1"
-}
-
-# The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused
-variable "deregistration_delay" {
-  default = "30"
-}
-
-# How often to check the liveliness of the container
-variable "health_check_interval" {
-  default = "30"
-}
-
-# The name of the container to run
-variable "container_name" {
-  default = "app"
-}
-
 # Network configuration
 
 # The VPC to use for the Fargate cluster
@@ -77,3 +51,7 @@ variable "private_subnets" {}
 
 # The public subnets, minimum of 2, that are a part of the VPC(s)
 variable "public_subnets" {}
+
+locals {
+  target_subnets = "${split(",", var.internal == true ? var.private_subnets : var.public_subnets)}"
+}

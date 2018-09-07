@@ -1,3 +1,13 @@
+# How often to check the liveliness of the container
+variable "health_check_interval" {
+  default = "30"
+}
+
+# The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused
+variable "deregistration_delay" {
+  default = "30"
+}
+
 resource "aws_lb" "main" {
   name                             = "${var.app}-${var.environment}"
   load_balancer_type               = "network"
@@ -5,7 +15,7 @@ resource "aws_lb" "main" {
 
   # launch lbs in public or private subnets based on "internal" variable
   internal = "${var.internal}"
-  subnets  = "${split(",", var.internal == true ? var.private_subnets : var.public_subnets)}"
+  subnets  = "${local.target_subnets}"
   tags     = "${var.tags}"
 }
 

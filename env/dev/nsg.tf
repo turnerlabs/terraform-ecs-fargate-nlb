@@ -1,7 +1,3 @@
-locals {
-  target_subnets = "${split(",", var.internal == true ? var.private_subnets : var.public_subnets)}"
-}
-
 resource "aws_security_group" "nsg_task" {
   name        = "${var.app}-${var.environment}-task"
   description = "Limit connections from internal resources while allowing ${var.app}-${var.environment}-task to connect to all external resources"
