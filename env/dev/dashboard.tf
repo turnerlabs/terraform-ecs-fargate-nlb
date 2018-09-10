@@ -45,10 +45,10 @@ resource "aws_cloudwatch_dashboard" "cloudwatch_dashboard" {
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "fargate-nlb-test5-dev", "ClusterName", "fargate-nlb-test5-dev", { "color": "#1f77b4" } ],
+                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "${var.app}-${var.environment}", "ClusterName", "${var.app}-${var.environment}", { "color": "#1f77b4" } ],
                     [ ".", "CPUUtilization", ".", ".", ".", ".", { "color": "#9467bd" } ]
                 ],
-                "region": "us-east-1",
+                "region": "${var.region}",
                 "period": 300,
                 "title": "Memory and CPU utilization",
                 "yAxis": {
@@ -67,7 +67,7 @@ resource "aws_cloudwatch_dashboard" "cloudwatch_dashboard" {
             "height": 6,
             "properties": {
                 "metrics": [
-                    [ "AWS/NetworkELB", "HealthyHostCount", "TargetGroup", "targetgroup/fargate-nlb-test5-dev/a10d6304997f5239", "LoadBalancer", "net/fargate-nlb-test5-dev/cb1847fcb7917d9b" ],
+                    [ "AWS/NetworkELB", "HealthyHostCount", "TargetGroup", "${aws_lb_target_group.main.arn_suffix}", "LoadBalancer", "${aws_lb.main.arn_suffix}" ],
                     [ ".", "UnHealthyHostCount", ".", ".", ".", "." ]
                 ],
                 "view": "timeSeries",
