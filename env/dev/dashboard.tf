@@ -67,13 +67,14 @@ resource "aws_cloudwatch_dashboard" "cloudwatch_dashboard" {
             "height": 6,
             "properties": {
                 "metrics": [
-                    [ "AWS/NetworkELB", "HealthyHostCount", "TargetGroup", "${aws_lb_target_group.main.arn_suffix}", "LoadBalancer", "${aws_lb.main.arn_suffix}" ],
+                    [ "AWS/NetworkELB", "HealthyHostCount", "TargetGroup", "${aws_lb_target_group.main.arn_suffix}", "LoadBalancer", "${aws_lb.main.arn_suffix}", { "period": 1, "stat": "Maximum" } ],
                     [ ".", "UnHealthyHostCount", ".", ".", ".", "." ]
                 ],
                 "view": "timeSeries",
                 "region": "us-east-1",
                 "period": 300,
-                "stacked": false
+                "stacked": false,
+                "title": "Container Count"
             }
         }
     ]
