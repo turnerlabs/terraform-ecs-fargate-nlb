@@ -11,6 +11,7 @@ terraform {
 variable "aws_profile" {}
 
 provider "aws" {
+  version = ">= 1.46.0"
   region  = "${var.region}"
   profile = "${var.aws_profile}"
 }
