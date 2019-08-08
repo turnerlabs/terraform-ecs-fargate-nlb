@@ -11,14 +11,16 @@ variable "region" {
 
 # Tags for the infrastructure
 variable "tags" {
-  type = "map"
+  type = map(string)
 }
 
 # The application's name
-variable "app" {}
+variable "app" {
+}
 
 # The environment that is being built
-variable "environment" {}
+variable "environment" {
+}
 
 # Whether the application is available on the public internet,
 # also will determine which subnets will be used (public or private)
@@ -29,7 +31,8 @@ variable "internal" {
 # The port the container will listen on, used for load balancer health check
 # Best practice is that this value is higher than 1024 so the container processes
 # isn't running at root.
-variable "container_port" {}
+variable "container_port" {
+}
 
 # The port the load balancer will listen on
 variable "lb_port" {
@@ -44,14 +47,21 @@ variable "lb_protocol" {
 # Network configuration
 
 # The VPC to use for the Fargate cluster
-variable "vpc" {}
+variable "vpc" {
+}
 
 # The private subnets, minimum of 2, that are a part of the VPC(s)
-variable "private_subnets" {}
+variable "private_subnets" {
+}
 
 # The public subnets, minimum of 2, that are a part of the VPC(s)
-variable "public_subnets" {}
+variable "public_subnets" {
+}
 
 locals {
-  target_subnets = "${split(",", var.internal == true ? var.private_subnets : var.public_subnets)}"
+  target_subnets = split(
+    ",",
+    var.internal == true ? var.private_subnets : var.public_subnets,
+  )
 }
+

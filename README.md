@@ -80,7 +80,7 @@ create an input vars file (`terraform.tfvars`)
 app = "my-app"
 environment = "dev"
 
-internal = "true"
+internal = true
 container_port = "8080"
 replicas = "1"
 region = "us-east-1"
