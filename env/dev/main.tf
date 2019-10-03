@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.12.0"
+  required_version = ">= 0.12"
 
   backend "s3" {
     region  = "us-east-1"
@@ -45,4 +45,3 @@ output "scale_out" {
 output "aws_profile" {
   value = var.aws_profile
 }
-
