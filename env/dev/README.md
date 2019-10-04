@@ -18,6 +18,8 @@ The optional components can be removed by simply deleting the `.tf` file.
 | [autoscale-perf.tf][edap] | Performance-based auto scaling | Yes |
 | [autoscale-time.tf][edat] | Time-based auto scaling | Yes |
 | [logs-logzio.tf][edll] | Ship container logs to logz.io | Yes |
+| [secretsmanager.tf][edsm] | Add a Secrets Manager secret with a CMK KMS key. Also gives app role and ECS task definition role access to read secrets from Secrets Manager | Yes |
+| [ssm-parameters.tf][ssm] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. | Yes |
 
 
 ## Usage
@@ -92,3 +94,5 @@ $ terraform apply
 [edll]: logs-logzio.tf
 [alb-docs]: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html
 [up]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+[edsm]: secretsmanager.tf
+[ssm]: ssm-parameters.tf
