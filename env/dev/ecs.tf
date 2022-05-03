@@ -4,7 +4,7 @@
  * based on the application name and enironment. It will create a "Task Definition", which is required
  * to run a Docker container, https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html.
  * Next it creates a ECS Service, https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html
- * It attaches the Load Balancer created in `lb.tf` to the service, and sets up the networking required.
+ * It attaches the Load Balancer created in `nlb.tf` to the service, and sets up the networking required.
  * It also creates a role with the correct permissions. And lastly, ensures that logs are captured in CloudWatch.
  *
  * When building for the first time, it will install a "default backend", which is a simple web service that just
